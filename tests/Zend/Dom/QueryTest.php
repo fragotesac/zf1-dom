@@ -20,8 +20,6 @@
  * @version    $Id$
  */
 
-/** Zend_Dom_Query */
-require_once 'Zend/Dom/Query.php';
 
 /**
  * Test class for Zend_Dom_Query.
@@ -79,6 +77,8 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
     public function testConstructorShouldNotRequireArguments()
     {
         $query = new Zend_Dom_Query();
+
+        $this->assertInstanceOf(Zend_Dom_Query::class, $query);
     }
 
     public function testConstructorShouldAcceptDocumentString()

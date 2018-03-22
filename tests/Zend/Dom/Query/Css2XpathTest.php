@@ -20,7 +20,6 @@
  * @version    $Id$
  */
 
-require_once 'Zend/Dom/Query/Css2Xpath.php';
 
 /**
  * Test class for Css2Xpath.
@@ -37,6 +36,8 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testTransformShouldBeCalledStatically()
     {
         Zend_Dom_Query_Css2Xpath::transform('');
+
+        $this->assertTrue(true);
     }
 
     public function testTransformShouldReturnStringByDefault()

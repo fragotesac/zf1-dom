@@ -20,8 +20,6 @@
  * @version    $Id$
  */
 
-/** Zend_Dom_Query_Result */
-require_once 'Zend/Dom/Query/Result.php';
 
 /**
  * @category   Zend

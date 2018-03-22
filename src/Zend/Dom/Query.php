@@ -39,7 +39,7 @@ class Zend_Dom_Query
     /**#@-*/
 
     /**
-     * @var string|DOMDocument
+     * @var string|DOMDocument|null
      */
     protected $_document;
 
@@ -82,7 +82,7 @@ class Zend_Dom_Query
     /**
      * Set document encoding
      *
-     * @param  string $encoding
+     * @param  string|null $encoding
      * @return $this
      */
     public function setEncoding($encoding)
@@ -104,7 +104,7 @@ class Zend_Dom_Query
     /**
      * Set document to query
      *
-     * @param  string|DOMDocument $document
+     * @param  string|DOMDocument|null $document
      * @param  null|string $encoding Document encoding
      * @return $this
      */
@@ -113,7 +113,7 @@ class Zend_Dom_Query
         if ($document instanceof DOMDocument) {
             return $this->setDocumentDom($document);
         }
-        if (0 === strlen($document)) {
+        if (null === $document || 0 === strlen($document)) {
             return $this;
         }
         // breaking XML declaration to make syntax highlighting work
@@ -200,7 +200,7 @@ class Zend_Dom_Query
     /**
      * Retrieve current document
      *
-     * @return string|DOMDocument
+     * @return string|DOMDocument|null
      */
     public function getDocument()
     {
@@ -263,11 +263,13 @@ class Zend_Dom_Query
         $type   = $this->getDocumentType();
         switch ($type) {
             case self::DOC_DOM:
+                /** @var DOMDocument $domDoc */
                 $domDoc = $this->_document;
                 $success = true;
                 break;
             case self::DOC_XML:
                 try {
+                    /** @var DOMDocument|false $domDoc */
                     $domDoc = Zend_Xml_Security::scan($document, $domDoc);
                     $success = ($domDoc !== false);
                 } catch (Zend_Xml_Exception $e) {
@@ -312,7 +314,7 @@ class Zend_Dom_Query
      *
      * @param  DOMDocument $document
      * @param  string|array $xpathQuery
-     * @return array
+     * @return DOMNodeList
      */
     protected function _getNodeList($document, $xpathQuery)
     {
