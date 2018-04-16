@@ -59,7 +59,7 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
     public function getHtml()
     {
         if (null === $this->html) {
-            $this->html  = file_get_contents(dirname(__FILE__) . '/_files/sample.xhtml');
+            $this->html = file_get_contents(dirname(__FILE__) . '/_files/sample.xhtml');
         }
         return $this->html;
     }
@@ -95,14 +95,14 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
 
     public function testDocShouldBeNullByEmptyStringConstructor()
     {
-        $emptyStr = "";
-        $query = new Zend_Dom_Query($emptyStr);
+        $emptyStr = '';
+        $query    = new Zend_Dom_Query($emptyStr);
         $this->assertNull($this->query->getDocument());
     }
 
     public function testDocShouldBeNullByEmptyStringSet()
     {
-        $emptyStr = "";
+        $emptyStr = '';
         $this->query->setDocument($emptyStr);
         $this->assertNull($this->query->getDocument());
     }
@@ -309,7 +309,7 @@ EOF;
         $this->query->setDocument($this->getHtml(), 'utf-8');
         $test = $this->query->query('.foo');
         $this->assertTrue($test instanceof Zend_Dom_Query_Result);
-        $doc  = $test->getDocument();
+        $doc = $test->getDocument();
         $this->assertTrue($doc instanceof DOMDocument);
         $this->assertEquals('utf-8', $doc->encoding);
     }
@@ -363,7 +363,7 @@ EOB;
 </results>
 XML;
         $this->query->setDocumentXml($xml);
-        $this->expectException("Zend_Dom_Exception");
+        $this->expectException('Zend_Dom_Exception');
         $this->query->queryXpath('/');
     }
 }

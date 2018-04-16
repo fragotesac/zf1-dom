@@ -260,17 +260,17 @@ class Zend_Dom_Query
         } else {
             $domDoc = new DOMDocument('1.0', $encoding);
         }
-        $type   = $this->getDocumentType();
+        $type = $this->getDocumentType();
         switch ($type) {
             case self::DOC_DOM:
                 /** @var DOMDocument $domDoc */
-                $domDoc = $this->_document;
+                $domDoc  = $this->_document;
                 $success = true;
                 break;
             case self::DOC_XML:
                 try {
                     /** @var DOMDocument|false $domDoc */
-                    $domDoc = Zend_Xml_Security::scan($document, $domDoc);
+                    $domDoc  = Zend_Xml_Security::scan($document, $domDoc);
                     $success = ($domDoc !== false);
                 } catch (Zend_Xml_Exception $e) {
                     throw new Zend_Dom_Exception(
@@ -318,18 +318,18 @@ class Zend_Dom_Query
      */
     protected function _getNodeList($document, $xpathQuery)
     {
-        $xpath      = new DOMXPath($document);
+        $xpath = new DOMXPath($document);
         foreach ($this->_xpathNamespaces as $prefix => $namespaceUri) {
             $xpath->registerNamespace($prefix, $namespaceUri);
         }
         $xpathQuery = (string) $xpathQuery;
         if (preg_match_all('|\[contains\((@[a-z0-9_-]+),\s?\' |i', $xpathQuery, $matches)) {
             foreach ($matches[1] as $attribute) {
-                $queryString = '//*[' . $attribute . ']';
+                $queryString   = '//*[' . $attribute . ']';
                 $attributeName = substr($attribute, 1);
-                $nodes = $xpath->query($queryString);
+                $nodes         = $xpath->query($queryString);
                 foreach ($nodes as $node) {
-                    $attr = $node->attributes->getNamedItem($attributeName);
+                    $attr        = $node->attributes->getNamedItem($attributeName);
                     $attr->value = ' ' . $attr->value . ' ';
                 }
             }

@@ -161,7 +161,7 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testShouldAllowWhitespaceInDescendentSelectorExpressions()
     {
         $test = Zend_Dom_Query_Css2Xpath::transform('child > leaf');
-        $this->assertEquals("//child/leaf", $test);
+        $this->assertEquals('//child/leaf', $test);
     }
 
     /**

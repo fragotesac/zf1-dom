@@ -68,7 +68,7 @@ class Zend_Dom_Query_Css2Xpath
             if (0 === strpos($pathSegment, '[contains(')) {
                 foreach ($paths as $key => $xpath) {
                     $paths[$key] .= '//*' . ltrim($pathSegment, '*');
-                    $paths[]      = $xpath . $pathSegment;
+                    $paths[] = $xpath . $pathSegment;
                 }
             } else {
                 foreach ($paths as $key => $xpath) {
@@ -163,7 +163,7 @@ class Zend_Dom_Query_Css2Xpath
      */
     protected static function _createContainsExpression($matches)
     {
-        return "[contains(@" . strtolower($matches[1]) . ", '"
+        return '[contains(@' . strtolower($matches[1]) . ", '"
              . $matches[2] . "')]";
     }
 }

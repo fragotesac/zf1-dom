@@ -36,9 +36,9 @@ class Zend_Dom_Query_ResultTest extends PHPUnit\Framework\TestCase
      */
     public function testEmptyResultDoesNotReturnIteratorValidTrue()
     {
-        $dom = new DOMDocument();
-        $emptyNodeList = $dom->getElementsByTagName("a");
-        $result = new Zend_Dom_Query_Result("", "", $dom, $emptyNodeList);
+        $dom           = new DOMDocument();
+        $emptyNodeList = $dom->getElementsByTagName('a');
+        $result        = new Zend_Dom_Query_Result('', '', $dom, $emptyNodeList);
 
         $this->assertFalse($result->valid());
     }
