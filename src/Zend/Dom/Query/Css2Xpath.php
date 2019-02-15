@@ -53,7 +53,7 @@ class Zend_Dom_Query_Css2Xpath
         }
 
         $paths    = array('//');
-        $path     = preg_replace('|\s+>\s+|', '>', $path);
+        $path     = (string) preg_replace('|\s+>\s+|', '>', $path);
         $segments = preg_split('/\s+/', $path);
         foreach ($segments as $key => $segment) {
             $pathSegment = self::_tokenize($segment);
@@ -92,35 +92,36 @@ class Zend_Dom_Query_Css2Xpath
     protected static function _tokenize($expression)
     {
         // Child selectors
+        /** @var string $expression **/
         $expression = str_replace('>', '/', $expression);
 
         // IDs
-        $expression = preg_replace('|#([a-z][a-z0-9_-]*)|i', '[@id=\'$1\']', $expression);
-        $expression = preg_replace('|(?<![a-z0-9_-])(\[@id=)|i', '*$1', $expression);
+        $expression = (string) preg_replace('|#([a-z][a-z0-9_-]*)|i', '[@id=\'$1\']', $expression);
+        $expression = (string) preg_replace('|(?<![a-z0-9_-])(\[@id=)|i', '*$1', $expression);
 
         // arbitrary attribute strict equality
-        $expression = preg_replace_callback(
+        $expression = (string) preg_replace_callback(
             '|\[([a-z0-9_-]+)=[\'"]([^\'"]+)[\'"]\]|i',
             array(__CLASS__, '_createEqualityExpression'),
             $expression
         );
 
         // arbitrary attribute contains full word
-        $expression = preg_replace_callback(
+        $expression = (string) preg_replace_callback(
             '|\[([a-z0-9_-]+)~=[\'"]([^\'"]+)[\'"]\]|i',
             array(__CLASS__, '_normalizeSpaceAttribute'),
             $expression
         );
 
         // arbitrary attribute contains specified content
-        $expression = preg_replace_callback(
+        $expression = (string) preg_replace_callback(
             '|\[([a-z0-9_-]+)\*=[\'"]([^\'"]+)[\'"]\]|i',
             array(__CLASS__, '_createContainsExpression'),
             $expression
         );
 
         // Classes
-        $expression = preg_replace(
+        $expression = (string) preg_replace(
             '|\.([a-z][a-z0-9_-]*)|i',
             "[contains(concat(' ', normalize-space(@class), ' '), ' \$1 ')]",
             $expression

@@ -54,7 +54,7 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
         $test = Zend_Dom_Query_Css2Xpath::transform('#foo, #bar');
         $this->assertInternalType('string', $test);
         $this->assertContains('|', $test);
-        $this->assertEquals(2, count(explode('|', $test)));
+        $this->assertCount(2, explode('|', $test));
     }
 
     public function testTransformShouldRecognizeHashSymbolAsId()

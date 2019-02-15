@@ -167,14 +167,14 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
         $this->loadHtml();
         $result  = $this->query->query('.foo');
         $message = 'Xpath: ' . $result->getXpathQuery() . "\n";
-        $this->assertEquals(3, count($result), $message);
+        $this->assertCount(3, $result, $message);
     }
 
     public function testResultShouldAllowIteratingOverFoundNodes()
     {
         $this->loadHtml();
         $result = $this->query->query('.foo');
-        $this->assertEquals(3, count($result));
+        $this->assertCount(3, $result);
         foreach ($result as $node) {
             $this->assertTrue($node instanceof DOMNode, var_export($result, 1));
         }
@@ -184,35 +184,35 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
     {
         $this->loadHtml();
         $result = $this->query->query('.footerblock .last');
-        $this->assertEquals(1, count($result), $result->getXpathQuery());
+        $this->assertCount(1, $result, $result->getXpathQuery());
     }
 
     public function testQueryShouldFindNodesWithArbitraryAttributeSelectorsExactly()
     {
         $this->loadHtml();
         $result = $this->query->query('div[dojoType="FilteringSelect"]');
-        $this->assertEquals(1, count($result), $result->getXpathQuery());
+        $this->assertCount(1, $result, $result->getXpathQuery());
     }
 
     public function testQueryShouldFindNodesWithArbitraryAttributeSelectorsAsDiscreteWords()
     {
         $this->loadHtml();
         $result = $this->query->query('li[dojoType~="bar"]');
-        $this->assertEquals(2, count($result), $result->getXpathQuery());
+        $this->assertCount(2, $result, $result->getXpathQuery());
     }
 
     public function testQueryShouldFindNodesWithArbitraryAttributeSelectorsAndAttributeValue()
     {
         $this->loadHtml();
         $result = $this->query->query('li[dojoType*="bar"]');
-        $this->assertEquals(2, count($result), $result->getXpathQuery());
+        $this->assertCount(2, $result, $result->getXpathQuery());
     }
 
     public function testQueryXpathShouldAllowQueryingArbitraryUsingXpath()
     {
         $this->loadHtml();
         $result = $this->query->queryXpath('//li[contains(@dojotype, "bar")]');
-        $this->assertEquals(2, count($result), $result->getXpathQuery());
+        $this->assertCount(2, $result, $result->getXpathQuery());
     }
 
     public function testQueryOnDomDocument()
@@ -267,11 +267,11 @@ EOF;
 
         $this->query->setDocument($html);
         $results = $this->query->query('input[type="hidden"][value="1"]');
-        $this->assertEquals(2, count($results), $results->getXpathQuery());
+        $this->assertCount(2, $results, $results->getXpathQuery());
         $results = $this->query->query('input[value="1"][type~="hidden"]');
-        $this->assertEquals(2, count($results), $results->getXpathQuery());
+        $this->assertCount(2, $results, $results->getXpathQuery());
         $results = $this->query->query('input[type="hidden"][value="0"]');
-        $this->assertEquals(1, count($results));
+        $this->assertCount(1, $results);
     }
 
     /**
