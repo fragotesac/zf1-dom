@@ -303,6 +303,7 @@ class Zend_Dom_Query
      * Register XPath namespaces
      *
      * @param array $xpathNamespaces
+     * @return void
      */
     public function registerXpathNamespaces($xpathNamespaces)
     {
@@ -314,7 +315,7 @@ class Zend_Dom_Query
      *
      * @param  DOMDocument $document
      * @param  string|array $xpathQuery
-     * @return DOMNodeList
+     * @return DOMNodeList|false
      */
     protected function _getNodeList($document, $xpathQuery)
     {
