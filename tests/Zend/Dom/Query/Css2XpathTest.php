@@ -43,7 +43,7 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testTransformShouldReturnStringByDefault()
     {
         $test = Zend_Dom_Query_Css2Xpath::transform('');
-        $this->assertInternalType('string', $test);
+        $this->assertIsString($test);
     }
 
     /**
@@ -52,8 +52,8 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testTransformShouldReturnMultiplePathsWhenExpressionContainsCommas()
     {
         $test = Zend_Dom_Query_Css2Xpath::transform('#foo, #bar');
-        $this->assertInternalType('string', $test);
-        $this->assertContains('|', $test);
+        $this->assertIsString($test);
+        $this->assertStringContainsString('|', $test);
         $this->assertCount(2, explode('|', $test));
     }
 
@@ -72,13 +72,13 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testTransformShouldAssumeSpacesToIndicateRelativeXpathQueries()
     {
         $test = Zend_Dom_Query_Css2Xpath::transform('div#foo .bar');
-        $this->assertContains('|', $test);
+        $this->assertStringContainsString('|', $test);
         $expected = array(
             "//div[@id='foo']//*[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]",
             "//div[@id='foo'][contains(concat(' ', normalize-space(@class), ' '), ' bar ')]",
         );
         foreach ($expected as $path) {
-            $this->assertContains($path, $test);
+            $this->assertStringContainsString($path, $test);
         }
     }
 
@@ -94,8 +94,8 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testMultipleComplexCssSpecificationShouldTransformToExpectedXpath()
     {
         $test = Zend_Dom_Query_Css2Xpath::transform('div#foo span.bar, #bar li.baz a');
-        $this->assertInternalType('string', $test);
-        $this->assertContains('|', $test);
+        $this->assertIsString($test);
+        $this->assertStringContainsString('|', $test);
         $actual   = explode('|', $test);
         $expected = array(
             "//div[@id='foo']//span[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]",
@@ -110,7 +110,7 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
     public function testClassNotationWithoutSpecifiedTagShouldResultInMultipleQueries()
     {
         $test = Zend_Dom_Query_Css2Xpath::transform('div.foo .bar a .baz span');
-        $this->assertContains('|', $test);
+        $this->assertStringContainsString('|', $test);
         $segments = array(
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')]//*[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a//*[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')]//*[contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
@@ -118,7 +118,7 @@ class Zend_Dom_Query_Css2XpathTest extends PHPUnit\Framework\TestCase
             "//div[contains(concat(' ', normalize-space(@class), ' '), ' foo ')][contains(concat(' ', normalize-space(@class), ' '), ' bar ')]//a[contains(concat(' ', normalize-space(@class), ' '), ' baz ')]//span",
         );
         foreach ($segments as $xpath) {
-            $this->assertContains($xpath, $test);
+            $this->assertStringContainsString($xpath, $test);
         }
     }
 
