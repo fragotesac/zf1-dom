@@ -34,6 +34,7 @@
 class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
 {
     public $html;
+    protected $query;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -159,7 +160,7 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
     {
         $this->loadHtml();
         $test = $this->query->query('.foo');
-        $this->assertTrue($test instanceof Zend_Dom_Query_Result);
+        $this->assertInstanceOf(Zend_Dom_Query_Result::class, $test);
     }
 
     public function testResultShouldIndicateNumberOfFoundNodes()
@@ -176,7 +177,7 @@ class Zend_Dom_QueryTest extends PHPUnit\Framework\TestCase
         $result = $this->query->query('.foo');
         $this->assertCount(3, $result);
         foreach ($result as $node) {
-            $this->assertTrue($node instanceof DOMNode, var_export($result, 1));
+            $this->assertInstanceOf(DOMNode::class, $node, var_export($result, 1));
         }
     }
 
@@ -227,9 +228,9 @@ EOF;
         $document->loadXML($xml, 524288 /* LIBXML_PARSEHUGE */);
         $this->query->setDocument($document);
         $test = $this->query->query('.baz');
-        $this->assertTrue($test instanceof Zend_Dom_Query_Result);
+        $this->assertInstanceOf(Zend_Dom_Query_Result::class, $test);
         $testDocument = $test->getDocument();
-        $this->assertTrue($testDocument instanceof DOMDocument);
+        $this->assertInstanceOf(DOMDocument::class, $testDocument);
         $this->assertEquals('UTF-8', $testDocument->encoding);
     }
 
@@ -308,9 +309,9 @@ EOF;
     {
         $this->query->setDocument($this->getHtml(), 'utf-8');
         $test = $this->query->query('.foo');
-        $this->assertTrue($test instanceof Zend_Dom_Query_Result);
+        $this->assertInstanceOf(Zend_Dom_Query_Result::class, $test);
         $doc = $test->getDocument();
-        $this->assertTrue($doc instanceof DOMDocument);
+        $this->assertInstanceOf(DOMDocument::class, $doc);
         $this->assertEquals('utf-8', $doc->encoding);
     }
 
