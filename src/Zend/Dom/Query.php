@@ -330,8 +330,13 @@ class Zend_Dom_Query
                 $attributeName = substr($attribute, 1);
                 $nodes         = $xpath->query($queryString);
                 foreach ($nodes as $node) {
-                    $attr        = $node->attributes->getNamedItem($attributeName);
-                    $attr->value = ' ' . $attr->value . ' ';
+                    $attributes  = $node->attributes;
+                    if ($attributes) {
+                        $attr        = $attributes->getNamedItem($attributeName);
+                        if ($attr && isset($attr->value)) {
+                            $attr->value = ' ' . $attr->value . ' ';
+                        }
+                    }
                 }
             }
         }
